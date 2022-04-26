@@ -1,0 +1,75 @@
+---
+title: "Systematic Review Template 1.0"
+author: "Contributors: Andrew M. Demetriou" # ideally this would appear on the side like github, include all contributors, and in a random order
+date: "Last update: `r format(Sys.Date())`" 
+output: html_document
+bibliography: references.bib
+link-citations: true
+---
+
+```{r import_packages, include=FALSE}
+# package manager
+if (!require("pacman")) install.packages("pacman")
+
+# load / install packages
+pacman::p_load(
+  "bibtex",      # read bibtext format
+  "dplyr" ,      # code logistics
+  "ggplot2")      # plotting
+
+# set chunk options to *not* print by default
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r generate_citation_file, include=FALSE}
+# this code is only here to generate a generic bibliography file
+
+# generate a citation
+citation("rmarkdown") %>% 
+  #convert to Bibtex format
+  toBibtex()
+
+# write citation file
+knitr::write_bib("rmarkdown", file = "references.bib")
+```
+
+```{r read_bibliography, include=FALSE}
+# read in reference file
+#refs <- read.bib("references.bib")
+
+# generate keys for each reference 
+#keys <- names(refs)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+This is where the 'abstract' would go. Lorem ipsum dolor sit amet [@R-rmarkdown], consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua[@R-rmarkdown; @rmarkdown2018]. Ut enim ad minim veniam^[Footnote 1: quis nostrud exercitation], ullamco laboris nisi ut aliquip ex ea commodo consequat [@R-rmarkdown; @rmarkdown2018; @rmarkdown2020]. 
+
+
+## R Markdown
+
+This is an R Markdown document. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. More long term, we should be aiming at using quarto instead, see <http://quarto.org>. 
+
+You can type whatever text in the white spaces, and executable code in the code 'chunks'. When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+You can embed an R code chunk like this:
+
+```{r cars, echo=FALSE}
+#summary(cars)
+knitr::kable(summary(cars))
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+ggplot(pressure, aes(x=temperature, y=pressure)) +
+  geom_point(color = "orange") +
+  theme_minimal()
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# References
